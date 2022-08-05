@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class СenteringObject : MonoBehaviour
+public class CenteringObject : MonoBehaviour
 {
     float x, y, z;
     public bool offset;

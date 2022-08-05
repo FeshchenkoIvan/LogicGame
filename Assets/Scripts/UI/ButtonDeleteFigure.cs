@@ -35,13 +35,10 @@ public class ButtonDeleteFigure : MonoBehaviour
             swipeControl.ActiveFigureName = "";
             countFigureInc.CountInc(figure.GetComponent<ActivateFigure>().indexFigure);
             figure.GetComponent<Rotation>().figureActive = false;
-            figure.GetComponent<ÑenteringObject>().enabled = false;
+            figure.GetComponent<CenteringObject>().enabled = false;
             figure.GetComponent<ActivateFigure>().activateFigure(false);
             figure.GetComponent<Rigidbody>().isKinematic = true;
             figure.transform.position = new Vector3(0, -100, 0);
-            //figure.SetActive(false);
-
-
         }
     }
 }

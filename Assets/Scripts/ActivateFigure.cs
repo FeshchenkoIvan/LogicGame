@@ -6,21 +6,20 @@ public class ActivateFigure : MonoBehaviour
 {
     public bool active;
     public int indexFigure;
-    public void GetActive(out bool b)
-    {
-        b = active;
-    }
     void Start()
     {
         active = false;
-        //transform.GetChild(0).gameObject.SetActive(true);
     }
-    public void activateFigure(bool b)
+    public void GetActive(out bool _bool)
     {
-        active = b;
-        GetComponent<ÑenteringObject>().enabled = b;
-        transform.GetChild(0).gameObject.SetActive(b);
-        if (b)
+        _bool = active;
+    }
+    public void activateFigure(bool _bool)
+    {
+        active = _bool;
+        GetComponent<CenteringObject>().enabled = _bool;
+        transform.GetChild(0).gameObject.SetActive(_bool);
+        if (_bool)
         {
             gameObject.layer = 0;
             GetComponent<Rigidbody>().mass = 0.0001f;

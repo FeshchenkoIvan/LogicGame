@@ -76,7 +76,7 @@ public class Rotation : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Euler(V_rotation);
                     rotate = false;
-                    GetComponent<ÑenteringObject>().CalibrationHeight();
+                    GetComponent<CenteringObject>().CalibrationHeight();
                 }
             }
         }

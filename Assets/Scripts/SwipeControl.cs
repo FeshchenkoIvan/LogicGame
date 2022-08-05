@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class SwipeControl : MonoBehaviour, IDragHandler
 {
     [SerializeField]
     private GameObject camera;
-    //[SerializeField]
-    //private ButtonCameraRotation buttonCameraRotation;
+
     [SerializeField]
     private ButtonDeleteFigure buttonDeleteFigure;
     [SerializeField]
@@ -25,8 +24,8 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
     public float Y = 0;
     public float swipeX = 0;
     public float swipeY = 0;
-    public float OffsetCentreX = 0;//ýêñïåðèìåíò
-    public float OffsetCentreZ = 0;//ýêñïåðèìåíò
+    public float OffsetCentreX = 0;
+    public float OffsetCentreZ = 0;
     float timePressOnFigure;
     public bool collision;
     public bool CameraRotation;
@@ -57,12 +56,6 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
             CameraRotation = false;
         else
             CameraRotation = true;
-    }
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        //X += eventData.delta.x;
-        //Y += eventData.delta.y;
-        Debug.Log("OnBeginDrag");
     }
 
     public void Update()
@@ -104,7 +97,6 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
                                         var PositionFigure = hit.transform.root.position;
                                         OffsetCentreX = hit.point.x-PositionFigure.x;//ñìåùåíèå öåíòðà ôèãóðû îò òî÷êè ïåðåìåùåíèÿ ôèãóðû ïàëüöåì
                                         OffsetCentreZ = hit.point.z-PositionFigure.z;
-                                        //Debug.Log("OffsetCentreX=" + OffsetCentreX + ", OffsetCentreZ=" + OffsetCentreZ);
                                     }
                                     else CheckDoubleClick();
                                 }
@@ -191,7 +183,7 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
     }
     public void ScrollPanelFigures(float deltaX)
     {
-        if (panelFigures.transform.position.x + deltaX < 0 && panelFigures.transform.position.x + deltaX > -1000)//-720)
+        if (panelFigures.transform.position.x + deltaX < 0 && panelFigures.transform.position.x + deltaX > -1000)
         {
             Vector3 NewPosition = panelFigures.transform.position;
             NewPosition.x += deltaX;
@@ -202,12 +194,10 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            //Debug.DrawLine(ray.origin, hit.point, Color.red, 10f);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.tag=="Figure")
                 {
-                    //ActiveFigureName = hit.collider.gameObject.transform.parent.name;
                     figureName = hit.collider.gameObject.name;
                     StartTime = true;
                     timePressOnFigure = 0.8f;
@@ -245,10 +235,8 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             if (StartTime == true)
             {
-                //timePressOnFigure = 0.8f;
                 StartTime = false;
                 ObjectMove = false;
-                //ActiveFigureName = "";
                 figureName = "";
             }
         }
@@ -281,7 +269,7 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (!CameraRotation) //ïîäóìàòü äëÿ ÀR
+        if (!CameraRotation)
             MovingFigure();
 
         if (ObjectRotation && CommandRotation == "")
@@ -328,8 +316,6 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
             Touch[] touch = Input.touches;
             RaycastHit hit;
             Ray ray = camera.GetComponent<Camera>().ViewportPointToRay(new Vector3(touch[0].position.x / MainCameraConfig.pixelWidth, touch[0].position.y / MainCameraConfig.pixelHeight, 0));
-            //Physics.Raycast(ray, out hit);
-            //Debug.DrawLine(ray.origin, hit.point, Color.black, 10f);
 
             if (Physics.Raycast(ray, out hit, 50, lyerMask))
             {
@@ -342,7 +328,7 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
                 {
                     if (figurePosition.y <= 1)
                     {
-                        GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(1);
+                        GameObject.Find(ActiveFigureName).GetComponent<CenteringObject>().CalibrationHeight2(1);
                         figurePosition.y = 0;
                     }
                     else
@@ -355,23 +341,21 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
                     if ((hit.point.y >= 0.98) && (hit.point.y < 1.98))
                     {
                         if (figurePosition.y < 2)
-                            GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(2);
+                            GameObject.Find(ActiveFigureName).GetComponent<CenteringObject>().CalibrationHeight2(2);
                     }
                     if ((hit.point.y >= 1.98) && (hit.point.y < 2.98))
                     {
                         if (figurePosition.y < 3)
-                            GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(3);
+                            GameObject.Find(ActiveFigureName).GetComponent<CenteringObject>().CalibrationHeight2(3);
                     }
                     if ((hit.point.y >= 2.98))
                     {
                         if (figurePosition.y < 4)
 
-                            GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(4);
+                            GameObject.Find(ActiveFigureName).GetComponent<CenteringObject>().CalibrationHeight2(4);
                     }
                     figurePosition.y = 0;
                 }
-                
-                //Debug.Log("hitPoint.y="+hit.point.y);
 
                 Vector3 direction = new Vector3(hit.point.x, 0, hit.point.z) - figurePosition;
 
@@ -388,66 +372,7 @@ public class SwipeControl : MonoBehaviour, IBeginDragHandler, IDragHandler
                     else
                         GameObject.Find(ActiveFigureName).GetComponent<Rigidbody>().velocity = direction * (3 / Vector3.Magnitude(direction)) * speedMove;
                 }
-                //Debug.Log("ìàãíèòóäà="+  Vector3.Magnitude(direction));
-                //Debug.DrawLine(ray.origin, hit.point, Color.green, 10f);
             }
         }
     }
 }
-
-//if ((hit.point.y < 0.98))
-//{
-//    if (figurePosition.y <= 1)
-//    {
-//        //figurePosition.y = 1;
-//        //GameObject.Find(ActiveFigureName).transform.position = figurePosition;
-//        GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(1);
-//        figurePosition.y = 0;
-//    }
-//    else
-//    {
-//        figurePosition.y = 1;
-//    }
-//}
-//if ((hit.point.y >= 0.98) && (hit.point.y < 1.98))
-//{
-//    if (figurePosition.y < 2)
-//    {
-//        //figurePosition.y = 2;
-//        //GameObject.Find(ActiveFigureName).transform.position = figurePosition;
-//        GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(2);
-//        figurePosition.y = 0;
-//    }
-//    else
-//    {
-//        figurePosition.y = 0;
-//    }
-//}
-//if ((hit.point.y >= 1.98) && (hit.point.y < 2.98))
-//{
-//    if (figurePosition.y < 3)
-//    {
-//        //figurePosition.y = 3;
-//        //GameObject.Find(ActiveFigureName).transform.position = figurePosition;
-//        GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(3);
-//        figurePosition.y = 0;
-//    }
-//    else
-//    {
-//        figurePosition.y = 0;
-//    }
-//}
-//if ((hit.point.y >= 2.98))
-//{
-//    if (figurePosition.y < 4)
-//    {
-//        //figurePosition.y = 4;
-//        //GameObject.Find(ActiveFigureName).transform.position = figurePosition;
-//        GameObject.Find(ActiveFigureName).GetComponent<ÑenteringObject>().CalibrationHeight2(4);
-//        figurePosition.y = 0;
-//    }
-//    else
-//    {
-//        figurePosition.y = 0;
-//    }
-//}
