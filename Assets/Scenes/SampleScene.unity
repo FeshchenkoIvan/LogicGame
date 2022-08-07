@@ -755,11 +755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87901f29c40be64eba7cf2a23b74de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 963194225}
+  sensitivity: 0.1
   CameraRotation: 0
-  PhasePanelFigures: 0
-  X: 0
-  Y: 0
-  camera: {fileID: 963194225}
 --- !u!4 &19892602
 Transform:
   m_ObjectHideFlags: 0
