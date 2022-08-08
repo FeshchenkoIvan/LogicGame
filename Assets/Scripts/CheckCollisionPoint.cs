@@ -6,10 +6,7 @@ public class CheckCollisionPoint : MonoBehaviour
 {
     [SerializeField] private MeshRenderer cube;
     public bool collision=false;
-    void Start()
-    {
-        
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         collision = true;
@@ -25,5 +22,4 @@ public class CheckCollisionPoint : MonoBehaviour
         collision = true;
         cube.enabled = false;
     }
-
 }
