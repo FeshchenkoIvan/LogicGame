@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class CenteringObject : MonoBehaviour
 {
-    float x, y, z;
-    public bool offset;
-    public float offset_x;
-    public float offset_z;
-    public bool Collision;
-    Vector3 savePosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-    private void FixedUpdate()
-    {
-    }
+    [SerializeField] private bool offset;
+    [SerializeField] private float offset_x;
+    [SerializeField] private float offset_z;
+    private float x, y, z;
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0))
@@ -31,7 +23,7 @@ public class CenteringObject : MonoBehaviour
             }
         }
     }
-    public void CalibrationHeight2(int height) //калибровка по высоте
+    public void CalibrationHeight2(int height)
     {
         if (offset)
         {
@@ -58,7 +50,7 @@ public class CenteringObject : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
-    public void CalibrationHeight() //калибровка по высоте
+    public void CalibrationHeight()
     {
         if (System.Math.Abs(Vector3.Dot(transform.right, Vector3.up)) >= 0.99)
         {
@@ -81,7 +73,7 @@ public class CenteringObject : MonoBehaviour
     {
         if (System.Math.Abs(Vector3.Dot(transform.up, Vector3.up)) >= 0.99) //y || Y?
         {
-            if (offset_z == 0 && offset) //если это фигура 1
+            if (offset_z == 0 && offset) //if figure 1
             {
                 if (System.Math.Abs(Vector3.Dot(transform.forward, Vector3.forward)) >= 0.99)
                 {
@@ -137,10 +129,8 @@ public class CenteringObject : MonoBehaviour
                 }
             }
         }
-        //y = CorrectPosition(transform.position.y);
         y = transform.position.y;
         transform.position = new Vector3(x, y, z);
-        //CalibrationHeight();
     }
     void СalibrationCenter()
     {
