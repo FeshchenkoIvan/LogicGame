@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class CountFigureInc : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private ButtonFigure[] buttonFigures;
-    void Start()
-    {
-        
-    }
-
     public void CountInc(int index)
     {
         transform.GetChild(index - 1).GetComponent<ButtonFigure>().CountInc();
